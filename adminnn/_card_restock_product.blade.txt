@@ -1,0 +1,57 @@
+<form x-on:submit.prevent="btnUpdateStock(editProductStock.id)">
+    <div class="grid gap-4 grid-cols-2 py-4 md:py-6">
+        <div class="col-span-2 sm:col-span-1">
+            <label for="name" class="block mb-2.5 text-sm font-medium text-heading">Nama</label>
+            <input type="text" x-model="editProduct.name" readonly name="name" id="name" class="cursor-not-allowed bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Type product name">
+            <template x-if="errors.name">
+                <p class="mt-2.5 text-sm text-red-600 font-semibold" x-text="errors.name"><span class="font-medium"></span></p>
+            </template>
+        </div>
+         <div class="col-span-2 sm:col-span-1">
+            <label for="quantity" class="block mb-2.5 text-sm font-medium text-heading">Jumlah</label>
+            <template x-if="editProduct.stock">
+            <select id="quantity" readonly x-model="editProduct.stock.quantity" class="cursor-not-allowed block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 py-2.5 shadow-xs placeholder:text-body">
+                <option value="">Pilih Jumlah</option>
+                <template x-for="index in 10" :key="index">
+                    <option :value="index" x-text="index"></option>
+                </template>
+            </select>
+            </template>
+            <template x-if="errors.quantity">
+                <p class="mt-2.5 text-sm text-red-600 font-semibold" x-text="errors.quantity"><span class="font-medium"></span></p>
+            </template>
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+            <label for="price" class="block mb-2.5 text-sm font-medium text-heading">Harga</label>
+            <input type="number" readonly x-model="editProduct.price" id="price" class="cursor-not-allowed block bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="$2999">
+            <template x-if="errors.price">
+                <p class="mt-2.5 text-sm text-red-600 font-semibold" x-text="errors.price"><span class="font-medium"></span></p>
+            </template>
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+            <label for="size" class="block mb-2.5 text-sm font-medium text-heading">Ukuran</label>
+            <select id="size" readonly x-model="editProduct.size" class="cursor-not-allowed block block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 py-2.5 shadow-xs placeholder:text-body">
+                <option :value="editProduct.size" x-text="editProduct.size"></option>
+                {{-- <option value="">Pilih Ukuran</option>
+                <template x-for="size in listSize" :key="size">
+                </template> --}}
+            </select>
+            <template x-if="errors.size">
+                <p class="mt-2.5 text-sm text-red-600 font-semibold" x-text="errors.size"><span class="font-medium"></span></p>
+            </template>
+        </div>
+        <div class="col-span-2">
+            <label for="description" class="block mb-2.5 text-sm font-medium text-heading">Keterangan</label>
+            <textarea id="description" readonly x-model="editProduct.description" rows="4" class="cursor-not-allowed block block bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body" placeholder="Write product description here"></textarea>
+            <template x-if="errors.description">
+                <p class="mt-2.5 text-sm text-red-600 font-semibold" x-text="errors.description"><span class="font-medium"></span></p>
+            </template>
+        </div>
+    </div>
+    <div class="flex items-center space-x-4 pt-4 md:pt-6">
+        <button type="submit" class="inline-flex items-center  text-white bg-blue-600 hover:bg-blue-700 rounded-lg box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+            Simpan
+        </button>
+        <button x-on:click="handleCancelEdit" type="button" class="text-body bg-gray-400 rounded-lg box-border border border-default-medium hover:bg-gray-500 hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Cancel</button>
+    </div>
+</form>
