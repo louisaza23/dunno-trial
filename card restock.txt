@@ -1,0 +1,57 @@
+<form x-on:submit.prevent="">
+    <div class="grid gap-4 grid-cols-2 py-4 md:py-6">
+        <div class="col-span-2 sm:col-span-1">
+            <label for="name" class="block mb-2.5 text-sm font-medium text-heading">Nama</label>
+            <input type="text" x-model="editProduct.name" readonly name="name" id="name" class="cursor-not-allowed bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Tulis Nama Barang" >
+            <template x-if="errors.name">
+                <p class="mt-2.5 text-sm text-red-400 font-semibold"><span class="font-medium" x-text = "errors.name"></span></p>
+            </template>
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+            <label for="quantity" class="block mb-2.5 text-sm font-medium text-heading">Jumlah</label>
+            <template x-if="editProduct.stock">
+                <select id="quantity" x-model="editProduct.stock.quantity"class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 py-2.5 shadow-xs placeholder:text-body" >
+                <option value="editProduct.quantity" x-text="editProduct.quantity"></option>
+                @for ($index = 1; $index < 11   ; $index++)
+                <option value="{{ $index }}">{{ $index }}</option>
+                @endfor
+            </select>
+            </template>
+
+            <template x-if="errors.quantity">
+                <p class="mt-2.5 text-sm text-red-400 font-semibold"><span class="font-medium" x-text = "errors.quantity"></span></p>
+            </template>
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+            <label for="size" class="block mb-2.5 text-sm font-medium text-heading">Ukuran</label>
+            <select id="size" readonly x-model="editProduct.size"  class="cursor-not-allowed block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand px-3 py-2.5 shadow-xs placeholder:text-body" >
+                    <option value="editProduct.size" x-text="editProduct.size"></option>
+            </select>
+            <template x-if="errors.size">
+                <p class="mt-2.5 text-sm text-red-400 font-semibold"><span class="font-medium" x-text = "errors.size"></span></p>
+            </template>
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+            <label for="price" class="block mb-2.5 text-sm font-medium text-heading">Harga</label>
+            <input type="number" x-model="editProduct.price" readonly name="price" id="price" class="cursor-not-allowed bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Isi Harga Barang" >
+            <template x-if="errors.price">
+                <p class="mt-2.5 text-sm text-red-400 font-semibold"><span class="font-medium" x-text = "errors.price"></span></p>
+            </template>
+        </div>
+        <div class="col-span-2">
+            <label for="description" class="block mb-2.5 text-sm font-medium text-heading">Keterangan</label>
+            <textarea id="description" x-model="editProduct.description" readonly rows="4" class="cursor-not-allowed block bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body" placeholder="Tulis Deskripsi Barang"></textarea>
+            <template x-if="errors.description">
+                <p class="mt-2.5 text-sm text-red-400 font-semibold"><span class="font-medium" x-text = "errors.description"></span></p>
+            </template>
+        </div>
+    </div>
+    <div class="flex items-center space-x-4 pt-2 md:pt-4">
+        <button x-on:click="updateStock" type="submit" class="inline-flex items-center  text-blue bg-blue-400 hover:bg-blue-500 rounded-lg box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+            Edit
+        </button>
+        <button x-on:click="handleCancelEdit" type="button" class="text-body bg-grey-400 box-border rounded-lg border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+            Batal
+        </button>
+    </div>
+</form>
